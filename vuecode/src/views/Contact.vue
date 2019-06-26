@@ -17,10 +17,12 @@
 
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item">HOME
-          </a>
           <a class="navbar-item">
-           <router-link to="/About">ABOUT</router-link>
+            <router-link to="/">Home</router-link>
+          </a>
+
+          <a class="navbar-item">
+            <router-link to="/About">About</router-link>
           </a>
           <a class="navbar-item">
             <router-link to="/Contact">Contact</router-link>
@@ -28,7 +30,7 @@
           <a class="navbar-item">
             <router-link to="/Login">Login</router-link>
           </a>
-                    <a class="navbar-item">
+          <a class="navbar-item">
             <router-link to="/Register">Register</router-link>
           </a>
         </div>
@@ -37,8 +39,8 @@
     <section class="hero is-success is-fullheight">
       <div class="hero-body">
         <div class="container">
-          <h1 class="title"></h1>
-          <h2 class="subtitle"></h2>
+          <h1 class="title">Contact page</h1>
+          <h2 class="subtitle">Contact page</h2>
         </div>
       </div>
     </section>
@@ -46,7 +48,7 @@
       <div class="content has-text-centered">
         <p>
           <strong>Change URL</strong> by
-          <a href="#"> Corporation</a>. The source code is licensed
+          <a href="#">JSMPJ Corporation</a>. The source code is licensed
           <a href="#">MIT</a>. The website content
           is licensed
           <a href="#">CC BY NC SA 4.0</a>.

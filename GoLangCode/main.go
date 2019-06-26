@@ -5,6 +5,7 @@ import(
 	"log"
 	"net/http"
 	"github.com/gorilla/mux"
+	"github.com/gorilla/handlers"
     "JSMPJ_go_db_vue/GoLangCode/Models"
 )
 func handleHome(w http.ResponseWriter, r *http.Request){
@@ -12,12 +13,14 @@ func handleHome(w http.ResponseWriter, r *http.Request){
 }
 func handleRequests(){
 	myRouter := mux.NewRouter().StrictSlash(true)
+	methods := handlers.AllowedHeaders([]string{"GET","POST","PUT","DELETE"})
+	origins := handlers.AllowedOrigins([]string{"*"})
 	myRouter.HandleFunc("/",handleHome).Methods("GET")
 	myRouter.HandleFunc("/user",user.Alluser).Methods("GET")
 	myRouter.HandleFunc("/user/{email}/{password}",user.NewUser).Methods("POST")
 	myRouter.HandleFunc("/user/{email}",user.DeleteUser).Methods("DELETE")
 	myRouter.HandleFunc("/user/{email}/{password}",user.UpdateUser).Methods("PUT")
-	log.Fatal(http.ListenAndServe(":8000",myRouter))
+	log.Fatal(http.ListenAndServe(":8000",handlers.CORS(methods,origins)(myRouter)))
 }
 func main(){
 	fmt.Println("JSMPJ Corporation")

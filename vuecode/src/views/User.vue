@@ -28,7 +28,7 @@
           <a class="navbar-item">
             <router-link to="/Login">Login</router-link>
           </a>
-                    <a class="navbar-item">
+         <a class="navbar-item">
             <router-link to="/Register">Register</router-link>
           </a>
         </div>
@@ -37,8 +37,18 @@
     <section class="hero is-success is-fullheight">
       <div class="hero-body">
         <div class="container">
-          <h1 class="title"></h1>
+          <h1 class="title">Welcome User :- Saurav</h1>
           <h2 class="subtitle"></h2>
+        </div>
+     <div class="container">
+        <b-field label="Title">
+            <b-input placeholder="Title of comment"></b-input>
+        </b-field>
+       <b-field label="Message"
+            >
+            <b-input maxlength="200" type="textarea"></b-input>
+        </b-field>
+        <a class="button is-info is-medium is-fullwidth">Medium</a>
         </div>
       </div>
     </section>
