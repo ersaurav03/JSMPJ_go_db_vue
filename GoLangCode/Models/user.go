@@ -16,6 +16,13 @@ type User struct{
 	Email string
 	Password string
 }
+type Posts struct{
+	gorm.Model
+	Email string
+	Title string
+	Message string
+}
+
 func InitialMigration(){
 	db,err := gorm.Open("sqlite3","test.db")
 	if err != nil {
@@ -23,7 +30,7 @@ func InitialMigration(){
 		panic("failed to connect database")
 	}
 	defer db.Close()
-	db.AutoMigrate(&User{})
+	db.AutoMigrate(&User{},&Posts{})
 }
 func Alluser(w http.ResponseWriter, r *http.Request){
 	db,err:= gorm.Open("sqlite3","test.db")
@@ -50,9 +57,29 @@ func NewUser(w http.ResponseWriter, r *http.Request){
 	fmt.Fprintf(w,"New User Created")
 }
 
-func DeleteUser(w http.ResponseWriter, r *http.Request){
+func PostUser(w http.ResponseWriter, r *http.Request){
+	db,err:= gorm.Open("sqlite3","test.db")
+	if err != nil {
+		fmt.Println(err.Error())
+		panic("failed to connect database")
+	}
+	defer db.Close()
+	vars := mux.Vars(r)
+	email:=vars["email"]
+	title:= vars["title"]
+	message:=vars["message"]
+	db.Create(&Posts{Email:email,Title:title,Message:message})
+	fmt.Fprintf(w,"New POST Created")
 }
 
-func UpdateUser(w http.ResponseWriter, r *http.Request){
-	fmt.Fprintf(w,"UpdateUser end point Hit")
+func GetUserPost(w http.ResponseWriter, r *http.Request){
+	db,err:= gorm.Open("sqlite3","test.db")
+	if err != nil {
+		fmt.Println(err.Error())
+		panic("failed to connect database")
+	}
+	defer db.Close()
+	var posts []Posts
+	db.Find(&posts)
+	json.NewEncoder(w).Encode(posts)
 }
