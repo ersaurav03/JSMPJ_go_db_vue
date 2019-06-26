@@ -115,7 +115,9 @@ data () {
       for (i=0;i<this.info.length;i++){
           if(this.email == this.info[i].Email && this.password ==this.info[i].Password){
              this.red=true
-             this.$router.push('/user');
+             this.$router.push({name:'user',
+             params: { email: this.info[i].Email }
+             })
              break
           }
           else{

@@ -37,7 +37,7 @@
     <section class="hero is-success is-fullheight">
       <div class="hero-body">
         <div class="container">
-          <h1 class="title">Welcome User :- Saurav</h1>
+          <h1 class="title">Welcome User :- {{email}}</h1>
           <h2 class="subtitle"></h2>
         </div>
      <div class="container">
@@ -48,7 +48,7 @@
             >
             <b-input maxlength="200" type="textarea"></b-input>
         </b-field>
-        <a class="button is-info is-medium is-fullwidth">Medium</a>
+        <a class="button is-info is-medium is-fullwidth">Post it</a>
         </div>
       </div>
     </section>
@@ -65,3 +65,13 @@
     </footer>
   </div>
 </template>
+<script>
+export default {
+    data() {
+ return {
+ email: this.$route.params.email
+ }
+ }
+}
+</script>
+
