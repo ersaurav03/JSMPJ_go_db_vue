@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a
           role="button"
@@ -40,7 +40,6 @@
           <div class="columns">
             <div class="column">
               <h1 class="title">Register Page</h1>
-              <!-- <h2 class="subtitle">Login Page</h2> -->
             </div>
             <div class="column"></div>
             <div class="column"></div>
@@ -54,7 +53,7 @@
               <div class="field">
                 <label class="label">Password</label>
                 <div class="control">
-                  <input  class="input" type="password" v-model="password" placeholder="Pasword">
+                  <input class="input" type="password" v-model="password" placeholder="Pasword">
                 </div>
               </div>
 
@@ -83,27 +82,24 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
-data () {
+  data() {
     return {
-     email:"",
-     password:""
+      email: "",
+      password: ""
+    };
+  },
+  mounted() {},
+  methods: {
+    registerr: function() {
+      axios
+        .post("http://localhost:8000/user/" + this.email + "/" + this.password)
+        .then(response => {})
+        .catch(e => {
+          console.error(e);
+        });
     }
-  },
-  mounted () {
-    
-  },
- methods: {
-   registerr: function (){
-  axios.post('http://localhost:8000/user/'+this.email+"/"+this.password)
-  .then((response) => {})
-  .catch((e) => {
-    console.error(e)
-  })
-   },
- }
-
-
-}
+  }
+};
 </script>

@@ -20,6 +20,7 @@ func handleRequests(){
 	myRouter.HandleFunc("/user/{email}/{password}",user.NewUser).Methods("POST")
 	myRouter.HandleFunc("/user/{email}/{title}/{message}",user.PostUser).Methods("POST")
 	myRouter.HandleFunc("/user/{email}",user.GetUserPost).Methods("GET")
+	myRouter.HandleFunc("/user/{id}",user.DeleteUserPost).Methods("DELETE")
 	log.Fatal(http.ListenAndServe(":8000",handlers.CORS(methods,origins)(myRouter)))
 }
 func main(){

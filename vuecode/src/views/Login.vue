@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a
           role="button"
@@ -63,19 +63,19 @@
                   <button class="button is-link" @click="logins">SignIn</button>
                 </div>
               </div>
-             
             </div>
           </div>
         </div>
       </div>
       <div v-if="red==true">
-          <b-message type="is-success" has-icon>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet, elit sapien laoreet elit
-        </b-message>
+        <b-message
+          type="is-success"
+          has-icon
+        >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet, elit sapien laoreet elit</b-message>
       </div>
     </section>
 
-    <footer class="footer">
+    <footer class="notification is-primary">
       <div class="content has-text-centered">
         <p>
           <strong>Change URL</strong> by
@@ -90,47 +90,47 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { Toast } from 'buefy/dist/components/toast'
+import axios from "axios";
+import { Toast } from "buefy/dist/components/toast";
 export default {
-data () {
+  data() {
     return {
-    info:[],
-    email:"",
-    password:"",
-    red:false
+      info: [],
+      email: "",
+      password: "",
+      red: false
+    };
+  },
+  mounted() {
+    this.home();
+  },
+  methods: {
+    home: function() {
+      axios
+        .get("http://localhost:8000/user")
+        .then(response => (this.info = response.data));
+    },
+    logins: function() {
+      let i;
+      for (i = 0; i < this.info.length; i++) {
+        if (
+          this.email == this.info[i].Email &&
+          this.password == this.info[i].Password
+        ) {
+          this.red = true;
+          this.$router.push({
+            name: "user",
+            params: { email: this.info[i].Email }
+          });
+          break;
+        } else {
+          this.red = false;
+        }
+      }
+      if (this.red == false) {
+        Toast.open("Wrong Email id or Password");
+      }
     }
-  },
-  mounted () {
-    this.home()
-  },
- methods: {
-   home: function (){
-     axios
-      .get('http://localhost:8000/user')
-      .then(response => (this.info = response.data))
-   },
-   logins: function(){
-     let i
-      for (i=0;i<this.info.length;i++){
-          if(this.email == this.info[i].Email && this.password ==this.info[i].Password){
-             this.red=true
-             this.$router.push({name:'user',
-             params: { email: this.info[i].Email }
-             })
-             break
-          }
-          else{
-            this.red=false
-  
-          }
-      }
-      if(this.red==false){
-        Toast.open('Wrong Email id or Password')
-      }
-   }
- }
-
-
-}
+  }
+};
 </script>

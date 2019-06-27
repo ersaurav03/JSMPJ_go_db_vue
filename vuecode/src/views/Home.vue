@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a
           role="button"
@@ -17,7 +17,8 @@
 
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item">HOME
+          <a class="navbar-item">
+            <router-link to="/">Home</router-link>
           </a>
           <a class="navbar-item">
            <router-link to="/About">ABOUT</router-link>
@@ -28,7 +29,7 @@
           <a class="navbar-item">
             <router-link to="/Login">Login</router-link>
           </a>
-                    <a class="navbar-item">
+          <a class="navbar-item">
             <router-link to="/Register">Register</router-link>
           </a>
         </div>
