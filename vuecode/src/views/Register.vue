@@ -95,7 +95,9 @@ export default {
     registerr: function() {
       axios
         .post("http://localhost:8000/user/" + this.email + "/" + this.password)
-        .then(response => {})
+        .then(response => {
+           this.$router.push('/login');
+        })
         .catch(e => {
           console.error(e);
         });

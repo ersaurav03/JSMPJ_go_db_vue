@@ -33,28 +33,70 @@
           </a>
         </div>
       </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <h1>Welcome User :- {{email}}</h1>
+        </div>
+        <div class="navbar-item">
+          <b-button type="is-primary" @click="logoutt" outlined>Logout</b-button>
+        </div>
+      </div>
     </nav>
     <section class="hero is-primary is-bold is-medium">
       <div class="hero-body">
         <div class="tile is-ancestor">
           <div class="tile is-6 is-vertical is-parent">
             <div class="tile is-child box">
-              <h1>Welcome User :- {{email}}</h1>
               <ul>
-                <li v-bind:key="item.id" v-for="(item, index) in userPostInfo">
-                  <template v-if="index < activityCount">
-                    <b-message
-                      :title="item.Title"
-                      aria-close-label="Close message"
-                      @close="removePost(item.ID)"
-                    >{{item.Message}}</b-message>
-                  </template>
+                <li v-bind:key="item.ID" v-for="item in userPostInfo">
+                  <!-- <template v-if="index < activityCount"> -->
+                  <article class="media">
+                    <figure class="media-left">
+                      <p class="image is-64x64">
+                        <img src="https://bulma.io/images/placeholders/128x128.png" />
+                      </p>
+                    </figure>
+                    <div class="media-content">
+                      <div class="content">
+                        <p>
+                          <strong></strong>
+                          <small>{{item.Title}}</small>
+                          <small class="is-pulled-right">{{item.Email}}</small>
+                          <br />
+                          <b>{{item.Message}}</b>
+                        </p>
+                      </div>
+                      <nav class="level is-mobile">
+                        <div class="level-left">
+                          <a class="level-item">
+                            <span class="icon is-small">
+                              <i class="fas fa-reply"></i>
+                            </span>
+                          </a>
+                          <a class="level-item">
+                            <span class="icon is-small">
+                              <i class="fas fa-retweet"></i>
+                            </span>
+                          </a>
+                          <a class="level-item">
+                            <span class="icon is-small">
+                              <i class="fas fa-heart"></i>
+                            </span>
+                          </a>
+                        </div>
+                      </nav>
+                    </div>
+                    <div class="media-right">
+                      <button class="delete" @click="removePost(item.ID)"></button>
+                    </div>
+                  </article>
                 </li>
               </ul>
-              <br>
+              <br />
               <div class="has-margin">
                 <b-button
-                  v-if="activityCount < info.length"
+                  v-if="activityCount < userPostInfo.length"
                   class="is-small"
                   @click="showMoreLessPosts('addItem')"
                 >Show more</b-button>
@@ -113,14 +155,17 @@ export default {
   mounted() {
     this.getposts();
   },
+  updated() {
+    // this.getposts();
+  },
   methods: {
-    showMoreLessPosts(status) {
-      if (status == "addItem") {
-        this.activityCount += this.countLessMore;
-      } else {
-        this.activityCount -= this.countLessMore;
-      }
-    },
+    // showMoreLessPosts(status) {
+    //   if (status == "addItem") {
+    //     this.activityCount += this.countLessMore;
+    //   } else {
+    //     this.activityCount -= this.countLessMore;
+    //   }
+    // },
     postt: function() {
       axios
         .post(
@@ -142,11 +187,15 @@ export default {
     getposts: function() {
       axios.get("http://localhost:8000/user/" + this.email).then(response => {
         this.info = response.data;
+
         this.sortUserdata();
       });
     },
+    logoutt: function() {
+      this.$router.push("/login");
+    },
     sortUserdata: function() {
-      alert("working");
+      this.userPostInfo = [];
       let i;
       for (i = 0; i < this.info.length; i++) {
         if (this.info[i].Email == this.email) {
@@ -157,10 +206,10 @@ export default {
     removePost: function(id) {
       axios
         .delete("http://localhost:8000/user/" + id)
-        .then(response => {})
-        .catch(error => {
-          
-        });
+        .then(response => {
+          this.getposts();
+        })
+        .catch(error => {});
     }
   }
 };

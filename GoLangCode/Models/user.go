@@ -98,3 +98,22 @@ func DeleteUserPost(w http.ResponseWriter, r *http.Request){
 	  db.Delete(&posts)
 	  fmt.Fprintf(w,"user deleted successfully")
 }
+// func UpdateUserPost(w http.ResponseWriter, r *http.Request){
+// 	db,err:= gorm.Open("sqlite3","test.db")
+// 	if err != nil {
+// 		fmt.Println(err.Error())
+// 		panic("failed to connect database")
+// 	}
+// 	defer db.Close()
+// 	  vars:= mux.Vars(r)
+// 	  email:=vars["email"]
+// 	  title:= vars["title"]
+// 	  message:=vars["message"]
+// 	  var posts Posts
+// 	  db.Where("Title = ?", title).Find(&posts)
+// 	  posts.Email= email
+// 	  posts.Title=title
+// 	  posts.Message=message
+// 	  db.Save(&posts)
+// 	  fmt.Fprintf(w,"post updated successfully")
+// }
